@@ -23,9 +23,14 @@ Tecnologías utilizadas
 
 Instrucciones para ejecutar
 
-1. Descargar el script
-2. Ejecutar el script en un IDE compatible
-3. Segui las instrucciones en pantalla de la consola
+1. Clonar el repositorio o descargar el archivo smartgastro.py
+2. Asegurarse de tener Python 3 instalado
+3. Abrir una terminal en la carpeta donde está el archivo
+4. Ejecutar el siguiente comando:
+
+   python smartgastro.py
+
+5. Seguir las instrucciones que aparecen en pantalla
 
 Autores:
 - Dattoma Lucas
