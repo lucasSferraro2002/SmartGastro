@@ -1,8 +1,5 @@
 SmartGastro
 
-Sistema de gestión para Foodtrucks desarrollado como proyecto académico 
-para la materia Tecnologías y Nuevos Negocios — Da Vinci 2026.
-
 ¿De qué trata?
 
 SmartGastro es un sistema de gestión diseñado específicamente para dueños 
