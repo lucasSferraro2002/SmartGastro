@@ -1,6 +1,3 @@
-import print
-
-
 class Producto:
     def __init__(self, nombre, precio, stock, stock_minimo):
         self.nombre = nombre
@@ -19,6 +16,9 @@ class Producto:
         print(f"Stock actualizado. Stock actual de {self.nombre}: {self._stock}")
 
     def vender(self, cantidad):
+        if cantidad <= 0:
+            print("Error: la cantidad debe ser mayor a 0.")
+            return False
         if self._stock == 0:
             print(f"Error: {self.nombre} no tiene stock disponible.")
             return False
@@ -27,7 +27,7 @@ class Producto:
             return False
         self._stock -= cantidad
         if self._stock <= self.stock_minimo:
-            print(f"⚠️ Alerta: el stock de {self.nombre} está por debajo del mínimo.")
+            print(f"⚠️  Alerta: el stock de {self.nombre} está por debajo del mínimo.")
         return True
 
     def mostrar_info(self):
@@ -41,10 +41,10 @@ class Inventario:
     def agregar_producto(self, producto):
         for p in self._productos:
             if p.nombre.lower() == producto.nombre.lower():
-                print(f"Error: el producto {producto.nombre} ya existe en el inventario.")
+                print(f"Error: el producto '{producto.nombre}' ya existe en el inventario.")
                 return
         self._productos.append(producto)
-        print(f"Producto {producto.nombre} agregado al inventario.")
+        print(f"Producto '{producto.nombre}' agregado al inventario.")
 
     def buscar_producto(self, nombre):
         for p in self._productos:
@@ -71,7 +71,7 @@ class Foodtruck:
     def registrar_venta(self, nombre_producto, cantidad):
         producto = self.inventario.buscar_producto(nombre_producto)
         if producto is None:
-            print(f"Error: el producto {nombre_producto} no existe en el inventario.")
+            print(f"Error: el producto '{nombre_producto}' no existe en el inventario.")
             return
         if producto.vender(cantidad):
             venta = {
@@ -94,11 +94,6 @@ class Foodtruck:
         print(f"Total del día: ${total}")
         print("-------------------------\n")
 
-    def mostrar_info(self):
-        print(f"\nFoodtruck: {self.nombre}")
-        self.inventario.mostrar_inventario()
-        self.mostrar_resumen_ventas()
-
 
 def menu():
     print("\n¡Bienvenido a SmartGastro!")
@@ -118,15 +113,23 @@ def menu():
 
         if opcion == "1":
             nombre = input("Nombre del producto: ")
-            precio = float(input("Precio: "))
-            stock = int(input("Stock inicial: "))
-            stock_minimo = int(input("Stock mínimo: "))
+            try:
+                precio = float(input("Precio: "))
+                stock = int(input("Stock inicial: "))
+                stock_minimo = int(input("Stock mínimo: "))
+            except ValueError:
+                print("Error: ingresá un número válido.")
+                continue
             producto = Producto(nombre, precio, stock, stock_minimo)
             truck.inventario.agregar_producto(producto)
 
         elif opcion == "2":
             nombre = input("Nombre del producto a vender: ")
-            cantidad = int(input("Cantidad: "))
+            try:
+                cantidad = int(input("Cantidad: "))
+            except ValueError:
+                print("Error: ingresá un número entero válido.")
+                continue
             truck.registrar_venta(nombre, cantidad)
 
         elif opcion == "3":
@@ -141,5 +144,6 @@ def menu():
 
         else:
             print("Opción inválida. Ingresá un número del 1 al 5.")
+
 
 menu()
