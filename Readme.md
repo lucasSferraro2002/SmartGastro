@@ -1,6 +1,6 @@
 SmartGastro
 
-¿De qué trata?
+De qué trata?
 
 SmartGastro es un sistema de gestión diseñado específicamente para dueños 
 de foodtrucks que actualmente administran su negocio con papel o Excel. 
@@ -17,17 +17,16 @@ Funcionalidades principales
 
 Tecnologías utilizadas
 
-- Python 3.x
+- Python
 - Programación Orientada a Objetos (POO)
 - Encapsulamiento con getters/setters
 
 Instrucciones para ejecutar
 
-1. Descarga el script
-2. Ejecuta el script
-3. Segui las instrucciones en pantalla
+1. Descargar el script
+2. Ejecutar el script en un IDE compatible
+3. Segui las instrucciones en pantalla de la consola
 
-## Autores
-
+Autores:
 - Dattoma Lucas
 - Ferraro Lucas
