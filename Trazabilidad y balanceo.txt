@@ -1,0 +1,13 @@
+Trazabilidad y balanceo — SmartGastro
+Los tres modelos del sistema son consistentes entre sí. El proceso 2.0 Registrar Venta del DFD recibe ventas del Cliente,
+descuenta stock del almacén D1 Inventario y escribe en D2 Registro de Ventas — esto se refleja en el DER a través de las
+entidades Venta, Producto y Detalle de Venta. El proceso 3.0 Controlar Stock recibe ingredientes del Proveedor y actualiza D1,
+lo que corresponde a la relación entre Producto, Proveedor y Orden de Compra en el DER.
+El proceso 1.0 Gestionar Administración genera reportes para el Dueño a partir de los datos acumulados en ambos almacenes,
+respaldado por la entidad Venta en el DER. Finalmente, el proceso 4.0 Gestionar Empleados se conecta con la entidad Empleado
+relacionada con Foodtruck y Venta en el DER.
+
+A su vez, todos estos procesos responden a las Historias de Usuario definidas: la HU de registro de ventas origina el proceso 2.0,
+la HU de control de stock origina el proceso 3.0, la HU de reportes justifica el proceso 1.0, y la HU de gestión de empleados
+da origen al proceso 4.0. El balanceo se verifica porque todo flujo de datos del DFD tiene su representación como entidad o
+atributo en el DER. 
