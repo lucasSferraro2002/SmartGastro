@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Editar Producto — SmartGastro{% endblock %}
+{% block content %}
+<h2>Editar Producto</h2>
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="{{ producto.nombre }}" required>
+        </div>
+        <div class="form-group">
+            <label>Precio ($)</label>
+            <input type="number" name="precio" value="{{ producto.precio }}" step="0.01" min="0" required>
+        </div>
+        <div class="form-group">
+            <label>Stock actual</label>
+            <input type="number" name="stock" value="{{ producto.stock }}" min="0" required>
+        </div>
+        <div class="form-group">
+            <label>Stock mínimo</label>
+            <input type="number" name="stock_minimo" value="{{ producto.stock_minimo }}" min="0" required>
+        </div>
+        <div class="form-group">
+            <label>Proveedor</label>
+            <select name="id_proveedor">
+                <option value="">— Sin proveedor —</option>
+                {% for prov in proveedores %}
+                <option value="{{ prov.id }}" {% if producto.id_proveedor == prov.id %}selected{% endif %}>{{ prov.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a href="{{ url_for('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Nueva Venta — SmartGastro{% endblock %}
+{% block content %}
+<h2>Registrar Venta</h2>
+<div class="card">
+    <form method="POST">
+        {% if productos %}
+        {% for p in productos %}
+        <div class="venta-item">
+            <label>
+                <input type="checkbox" name="producto_id" value="{{ p.id }}" onchange="toggleCantidad(this, '{{ p.id }}')">
+                {{ p.nombre }} — ${{ "%.2f"|format(p.precio) }} (stock: {{ p.stock }})
+            </label>
+            <input type="number" name="cantidad" id="cant-{{ p.id }}" min="1" max="{{ p.stock }}" value="1" disabled class="input-cantidad">
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Confirmar venta</button>
+            <a href="{{ url_for('ventas.index') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+        {% else %}
+        <p>No hay productos con stock disponible. <a href="{{ url_for('productos.index') }}">Ir al inventario</a>.</p>
+        {% endif %}
+    </form>
+</div>
+<script>
+    function toggleCantidad(checkbox, id) {
+        document.getElementById('cant-' + id).disabled = !checkbox.checked;
+    }
+</script>
+{% endblock %}

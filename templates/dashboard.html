@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — SmartGastro{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="card {% if clima.lluvia %}card-warning{% elif clima.error %}card-muted{% else %}card-ok{% endif %}">
+    {% if clima.error %}
+    <strong>Clima no disponible:</strong> {{ clima.error }}
+    {% elif clima.lluvia %}
+    <strong>Alerta de lluvia — {{ clima.descripcion }}, {{ clima.temperatura }}C</strong>
+    <p>Se recomienda reducir la produccion hoy.</p>
+    {% else %}
+    <strong>{{ clima.descripcion }}, {{ clima.temperatura }}C</strong> — Buen dia para operar.
+    {% endif %}
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h3>Ventas de hoy</h3>
+        <p class="stat">{{ ventas_hoy }}</p>
+        <small>transacciones registradas</small>
+    </div>
+    <div class="card">
+        <h3>Total del dia</h3>
+        <p class="stat">${{ "%.2f"|format(total_hoy) }}</p>
+        <small>ingresos acumulados</small>
+    </div>
+</div>
+
+{% if alertas_stock %}
+<div class="card card-warning">
+    <h3>Stock bajo</h3>
+    <table>
+        <thead><tr><th>Producto</th><th>Stock actual</th><th>Minimo</th></tr></thead>
+        <tbody>
+        {% for p in alertas_stock %}
+        <tr>
+            <td>{{ p.nombre }}</td>
+            <td class="text-danger">{{ p.stock }}</td>
+            <td>{{ p.stock_minimo }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="card card-ok">
+    <strong>Todos los productos tienen stock suficiente.</strong>
+</div>
+{% endif %}
+
+<div class="dashboard-links">
+    <a href="{{ url_for('ventas.nueva') }}" class="btn btn-primary">+ Registrar venta</a>
+    <a href="{{ url_for('productos.index') }}" class="btn btn-secondary">Ver inventario</a>
+</div>
+{% endblock %}
