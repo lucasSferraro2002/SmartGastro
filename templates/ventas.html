@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Ventas — SmartGastro{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Historial de Ventas</h2>
+    <a href="{{ url_for('ventas.nueva') }}" class="btn btn-primary">+ Nueva venta</a>
+</div>
+<div class="card">
+    <table>
+        <thead>
+        <tr><th>#</th><th>Fecha y hora</th><th>Total</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+        {% for v in ventas %}
+        <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.fecha_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>${{ "%.2f"|format(v.total) }}</td>
+            <td><span class="badge badge-ok">{{ v.estado }}</span></td>
+            <td>
+                <form method="POST" action="{{ url_for('ventas.eliminar', id=v.id) }}" style="display:inline;" onsubmit="return confirm('¿Eliminar venta #{{ v.id }}?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center">No hay ventas registradas.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
